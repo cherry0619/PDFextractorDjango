@@ -1,0 +1,40 @@
+
+{% extends 'pdfOCR/base.html' %}
+
+{% block content %}
+    <div id="merger">
+    <p>Merge multiple pfds into a single one!</p>
+      <!-- pdf container -->
+  <div class ="pdf-container">
+    <div class="dropBox" id="dropBox">
+      <p>Drag and drop files here to upload</p>
+      <div>
+        <input type="file" id="fileInput">
+        <button id ="sumbit-file" style="display: block;margin: 6%;" onclick="">Upload</button>
+      </div>
+
+      <a id ="merger-note"><br>Uploaded file name will be listed below.<br>Merged result will be shown on the right</a>
+      <!-- show the updated files  -->
+      <div id ="uploaded-files-lists">
+        <!-- below we will use js to generate the li elements -->
+      </div>
+
+      <div id ="merger-button-container">
+        <!-- here we need to add a button to send the merge request -->
+        <button class="button" id ="pdf-merge_button">Merge</button>
+        <button class="button" id ="refresh_button" onclick="location.reload()">Refresh</button>
+      </div>
+
+    </div>
+
+    <!-- preview the uploaded file -->
+    <div id="preview-container">
+      <p>Choosed files and merged file will be displayed here !</p>
+      <embed src="" type="application/pdf"  id="pdf-preview">
+    </div>
+  </div>
+
+
+  </div>
+
+{% endblock %}

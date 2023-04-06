@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PDFkits</title>
+</head>
+<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'pdfOCR/css/styles.css' %}">
+
+        <!-- include the navbar HTML file here -->
+    <div id="navbar" class="navbar">
+        {% block navBar %}
+        <nav>
+            <ul>
+              <li><a class="nonactive" href="{% url 'merger' %}" id="merger-link"> PDF Merger</a></li>
+              <li><a class ="'nonactive" href="{% url 'extractor' %}" id="extractor-link">PDF Extractor</a></li>
+              <li><a class ="nonactive" href="{% url 'word' %}" id="word-link">PDF to Word</a></li>
+              <li><a class ="nonactive" href="{% url 'about' %}" id="contact">Contact me</a></li>
+            </ul>
+        </nav>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('a').click(function(event) {
+                event.preventDefault();  // prevent the link from reloading the page
+                $('#navbar').find('a').removeClass('active');
+                // add the active class to the clicked <a> tag
+                $(this).addClass('active');
+                var url = $(this).attr('href');  // get the URL from the link
+                $('#content').load(url + ' #content');  // load the content of the specified element from the URL into the #content element
+            });
+        });
+    </script>
+
+{% block javascript %}
+{% endblock %}
+</body>
+</html>

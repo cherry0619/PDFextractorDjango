@@ -1,0 +1,93 @@
+{% extends 'pdfOCR/base.html' %}
+
+{% block content %}
+        <p>Using OCR techniques to extract text from pdf file</p>
+    <!-- upload area -->
+    <div id="ExtracUploadedArea">
+      <!-- drag and drop area to uoload file -->
+      <div class="custom-file-input">
+        <div id="extractorForm">
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+              <input type="file" name="myfile">
+              <input type="hidden" name="file_contents" value="{{ file_contents }}">
+              <button id ="extractFileSubmit">Upload</button>
+          </form>
+        </div>
+      </div>
+{#      <!-- Extractor button -->#}
+      {% csrf_token %}
+      <button id="extractorButton" class="button" data-viewurl="{% url 'pdfOCR' %}">Extract</button>
+    </div>
+{#    <!-- pdf preview and result, displayed side by side -->#}
+    <div id="extractorDisplayArea">
+       <!-- pdf-review -->
+       <div id="pdf-result-container">
+        <p>Uploaded file will be displayed here!!</p>
+        <div id ="extractorPdfPreviewContainer">
+          <embed src="{{ uploaded_file_url }}" id="extractorPdfPreview" type="application/pdf" view="FitV,0,100">
+        </div>
+        <div id ="extractorResult">
+        </div>
+       </div>
+
+       <!-- table erea -->
+       <div id="extractor-result">
+          <!-- FICO score summary -->
+          <div>
+            <table id ="FICO-SCORE-SUMMARY">
+              <caption>FICO Score Summary</caption>
+              <thead>
+                <tr>
+                  <th>EquiFAX</th>
+                  <th>Experian</th>
+                  <th>TransUnion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>--</td>
+                  <td>--</td>
+                  <td>--</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Bureau Summary -->
+          <table id="BUREAU-SUMMARY">
+            <caption>Bureau Summary</caption>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>value</th>
+                <th>Item</th>
+                <th>value</th>
+                <th>Item</th>
+                <th>value</th>
+                <th>Item</th>
+                <th>value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+                <td>--</td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+    </div>
+
+{% endblock %}
+
+{% load static %}
+
+{% block javascript %}
+  <script src="{% static 'pdfOCR/js/pdfOCR.js' %}"></script>
+{% endblock %}
